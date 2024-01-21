@@ -1,5 +1,5 @@
 name: testing node app
-on: push
+on: workflows_dispatch
 jobs:
  test:
   runs-on: ubuntu-latest
