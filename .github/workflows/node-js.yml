@@ -1,5 +1,5 @@
 name: testing node app
-on: workflow_dispatch
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -11,7 +11,8 @@ jobs:
         with:
           node-version: '16.x'  # Choose the version you need, e.g., '16.x'
       - name: build
-        run: npm install
+        run: npm install ngrok --save-dev
+
       - name: build-2
         run: npm run build
       - name: start node application
