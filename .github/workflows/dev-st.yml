@@ -1,22 +1,27 @@
-name: Testing in dev environment 
-on: 
+name: Testing in dev environment
+
+on:
   workflow_dispatch:
-   branches:
-    - dev
- 
+    branches:
+      - dev
+
 jobs:
   build:
-   runs-on: ubuntu-latest
-   steps:
-     - name: checkout code
-       uses: actions/checkout@v4
-     - name: node setup
-       uses: actions/setup-node@v4
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Node setup
+        uses: actions/setup-node@v4
         with:
-         - node-version: '14.x', '16.x', '18.x'
-     - name: install dependencies
-       run: npm install
-     - name: building
-       run: npm run build
-     - name: Running app
-       run: npm start
+          node-version: '14.x' # Adjust the version to your needs
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Building
+        run: npm run build
+
+      - name: Running app
+        run: npm start
