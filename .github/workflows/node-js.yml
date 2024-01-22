@@ -16,7 +16,6 @@ jobs:
         run: npm run build
       - name: start node application
         run: npm start
-        background: true
       
   ngrok:
     runs-on: ubuntu-latest
