@@ -1,0 +1,26 @@
+name: SonarQube-code-testing
+on: 
+ push:
+  branch:
+   - dev
+   - stage
+   - prod
+
+jobs:
+  SonarQube:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+    
+    - name: set up Sonarqube 
+      uses: sonarsource/sonarsonarcloud-github-action@master
+      env:
+          GITHUB_TOKEN: ${{SONAR_TOKEN}}
+          SONAR_TOKEN: ${{ACCOUNT_TOKEN}}
+
+      with:
+         args: >
+            -Dsoanr.organization=devopsbyomer
+            -Dsonar.projectKey=GITHUB-
+            
