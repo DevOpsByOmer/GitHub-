@@ -16,3 +16,11 @@ jobs:
         run: npm run build
       - name: start node application
         run: npm start
+        background: true
+      - name: Wait for Ngrok to start
+        run: sleep 5
+      - name: Get Ngrok URL
+        run: curl http://127.0.0.1:4040/api/tunnels | jq -r .tunnels[0].public_url
+        id: ngrok
+      - name: Print Ngrok URL
+        run: echo "Ngrok URL: ${{ steps.ngrok.outputs.ngrok-url }}"
