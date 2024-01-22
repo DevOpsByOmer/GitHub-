@@ -1,18 +1,18 @@
 name: testing node app
 on: workflows_dispatch
 jobs:
- test:
-  runs-on: ubuntu-latest
-  steps:
-   - name: Get the code
-     uses: actions/checkout@v4
-   - name: Install node version
-     uses: actions/setup@v4
-     with:
-       node-version: 6
-   - name: build
-     run: npm install && npm run build
-   - name: start node application
-     run: npm start
+  test:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Get the code
+      uses: actions/checkout@v4
+    - name: Install node version
+      uses: actions/setup-node@v4
+      with:
+        node-version: 6
+    - name: build
+      run: npm install && npm run build
+    - name: start node application
+      run: npm start
 
      
