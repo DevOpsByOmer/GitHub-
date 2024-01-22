@@ -12,6 +12,7 @@ jobs:
     steps:
      - name: checkout code
        uses: actions/checkout@v4
+
     
      - name: set up Sonarqube 
        uses: sonarsource/sonarcloud-github-action@master
@@ -21,5 +22,5 @@ jobs:
 
        with:
           args: >
-             -Dsoanr.organization=devopsbyomer
+             -Dsoanr.organization=Omer Mohammed
              -Dsonar.projectKey=GITHUB-
