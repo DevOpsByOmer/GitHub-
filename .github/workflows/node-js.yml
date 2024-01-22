@@ -9,7 +9,7 @@ jobs:
     - name: Install node version
       uses: actions/setup-node@v4
       with:
-        node-version: [ 6, 14, 16, 17 ]
+        node-version: [ '6.x', '14.x', '16.x', '17.x' ]
     - name: build
       run: npm install
     - name: build-2
