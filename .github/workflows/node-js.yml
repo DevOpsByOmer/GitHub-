@@ -15,20 +15,10 @@ jobs:
 
       - name: build
         run: npm install ngrok --save-dev
-
+    
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: build-2
         run: npm run build
-
-      - name: start node application
-        run: npm start
       
-  ngrok:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Wait for node application to start
-        run: sleep 10
-      - name: Install ngrok
-        run: npm install ngrok -g
-      - name: Start ngrok
-        run: ngrok http 3000
