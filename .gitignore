@@ -3,3 +3,4 @@
 .github/workflows/stage.yml
 build/
 node_modules/
+.github/workflows/sonarcloud.yml
