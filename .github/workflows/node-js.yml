@@ -19,6 +19,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+      - name: Install node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.x'  # Choose the version you need, e.g., '16.x'
       - name: build-2
         run: npm run build
       
