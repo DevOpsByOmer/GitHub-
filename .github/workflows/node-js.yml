@@ -2,19 +2,17 @@ name: testing node app
 on: workflow_dispatch
 jobs:
   test:
-   runs-on: ubuntu-latest
-   steps:
-    - name: Get the code
-      uses: actions/checkout@v4
-    - name: Install node version
-      uses: actions/setup-node@v4
-      with:
-        node-version: [ '6.x', '14.x', '16.x', '17.x' ]
-    - name: build
-      run: npm install
-    - name: build-2
-      run: npm run build
-    - name: start node application
-      run: npm start
-
-     
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+      - name: Install node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.x'  # Choose the version you need, e.g., '16.x'
+      - name: build
+        run: npm install
+      - name: build-2
+        run: npm run build
+      - name: start node application
+        run: npm start
