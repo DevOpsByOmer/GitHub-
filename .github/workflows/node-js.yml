@@ -11,8 +11,8 @@ jobs:
         with:
           node-version: '16.x'  # Choose the version you need, e.g., '16.x'
       - name:
-        run: ifconfig
         run: ip addr show
+
       - name: build
         run: npm install ngrok --save-dev
 
