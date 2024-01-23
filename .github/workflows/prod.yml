@@ -2,8 +2,9 @@ name: Deploy Node.js App with NGINX
 
 on:
   push:
-    branches:
-      - prod
+     branches:
+          - prod
+          - master
 
 jobs:
   deploy:
