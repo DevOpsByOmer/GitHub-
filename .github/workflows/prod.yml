@@ -35,6 +35,6 @@ jobs:
         run: echo "$DEV_SSH_HOST ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7w...==" >> ~/.ssh/known_hosts
 
       - name: Deploy with SCP
-        run: scp -r . ${{ secrets.SSH_USER }}@${{ secrets.DEV_SSH_HOST }}:/var/www/html/
+        run: scp -r ./build/ ${{ secrets.SSH_USER }}@${{ secrets.DEV_SSH_HOST }}:/var/www/html/
 
 
