@@ -16,7 +16,7 @@ jobs:
 
       
       - name: Install dependencies
-        run: npm install 
+        run: npm install /home/ubuntu/actions-runner/_work/GitHub-/GitHub-/
 
 
       - name: Build Node.js app
