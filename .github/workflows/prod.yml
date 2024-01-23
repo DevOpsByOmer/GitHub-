@@ -16,7 +16,7 @@ jobs:
 
       
       - name: Install dependencies
-        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+        run: npm install 
 
 
       - name: Build Node.js app
