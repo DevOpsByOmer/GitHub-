@@ -1,8 +1,8 @@
-name: Testing in dev environment
+name: stage
 on:
-  push:
-    branches:
-      - dev
+    push:
+      branches:
+        - stage
 
 jobs:
   build:
