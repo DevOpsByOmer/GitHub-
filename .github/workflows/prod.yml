@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - prod
-      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -22,7 +22,8 @@ jobs:
       - name: Build Node.js app
         run: npm run build
 
-      - name: start app
-        run: npm start
+      - name: start react-app
+        run: pm2 start npm --name "react-app" -- start
 
      
+        
