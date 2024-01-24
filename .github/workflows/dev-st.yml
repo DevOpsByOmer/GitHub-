@@ -41,6 +41,8 @@ jobs:
         with:
             path: ~/.npm
             key: dep-node-module-${{ hashFiles('**/package-lock.json')}}
+      - name: Install dependencies
+        run: npm install
 
       - name: build
         run: npm run build
