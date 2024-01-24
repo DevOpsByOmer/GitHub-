@@ -1,4 +1,2 @@
-.github/workflows/sonarqube.yml
 build/
 node_modules/
-.github/workflows/sonarcloud.yml
