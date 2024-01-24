@@ -5,7 +5,7 @@ on:
       - dev
       
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,9 +15,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '14.x' # Adjust the version to your needs
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/npm
+          key: dep-node-module-${{ hashFiles('**/package-lock.json')}}
 
       - name: Install dependencies
         run: npm install
 
-      - name: Building
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Node setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14.x' 
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+            path: ~/npm
+            key: dep-node-module-${{ hashFiles('**/package-lock.json')}}
+
+      - name: build
         run: npm run build
+  

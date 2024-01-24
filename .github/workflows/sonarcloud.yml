@@ -1,8 +1,10 @@
-name: Build
+name: CODE SCANNING
 on:
   push:
     branches:
-      - master
+      - dev
+      - stage
+      - prod
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
