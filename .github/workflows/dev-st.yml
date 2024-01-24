@@ -27,6 +27,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Send a mail on failure
+        if: failure()
+        uses: wadeww/send-email-action@master
+        with:
+          server_address: smtp.gmail.com
+          port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Workflow finished
+          body: Job completed ${{job.status}}
+          to: dvop.omer@gmail.com
+          from: Github-action
+
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -46,7 +59,7 @@ jobs:
             ~/.cache
           key: dep-node-module-${{ runner.os }}-${{ hashFiles('**/package-lock.json')}}
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -62,4 +75,4 @@ jobs:
           subject: Workflow finished
           body: Job completed ${{job.status}}
           to: dvop.omer@gmail.com
-          from: Me
+          from: Github-action
