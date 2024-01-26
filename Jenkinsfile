@@ -35,7 +35,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'cd GitHub- && npm run build'
+                    sh 'cd GitHub- && npm run Build'
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 script {
                      withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')])
                   
-                    sh 'mvn sonar:sonar -Dsonar.url=${SONAR_URL} -Dsonar.login=$SONAR_AUTH_TOKEN'
+                    sh 'cd GitHub- && mvn sonar:sonar -Dsonar.url=${SONAR_URL} -Dsonar.login=$SONAR_AUTH_TOKEN'
                 }
             }
         }
