@@ -36,7 +36,7 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Workflow finished
-          body: Job completed ${{job.status}}
+          body: Job  ${{job.status}}
           to: dvop.omer@gmail.com
           from: Github-action
 
@@ -73,6 +73,6 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Workflow finished
-          body: Job completed ${{job.status}}
+          body: Job  ${{job.status}}
           to: dvop.omer@gmail.com
           from: Github-action
