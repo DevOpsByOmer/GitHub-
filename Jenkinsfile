@@ -35,7 +35,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'cd GitHub- && npm run Build'
+                    sh 'cd GitHub- && npm run build'
                 }
             }
         }
