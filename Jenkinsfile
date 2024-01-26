@@ -44,7 +44,7 @@ pipeline {
                 script {
                      withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]){
                   
-                    sh 'cd GitHub- && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.url=${SONAR_URL} '
+                    sh 'cd GitHub- && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.url=${SONAR_URL}'
                 }
             }
         }
