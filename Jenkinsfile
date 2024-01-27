@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-       node = "NODE"
-        SONAR_URL = "http://192.168.33.10:9000"
-    }
-
     tools {
         nodejs "NODE" 
         jdk "JDK"
@@ -14,10 +9,9 @@ pipeline {
     }
 
     stages {
-        stage('CODE CHECKOUT') {
+        stage('Fetching the COde') {
             steps {
-                script{
-                    sh "git clone https://github.com/DevOpsByOmer/GitHub-.git"
+           sh "git clone https://github.com/DevOpsByOmer/GitHub-.git"
                 }
             }
         }
@@ -40,19 +34,20 @@ pipeline {
             }
         }
         stage('Sonar Code Analysis') {
-            steps {
-                script {
-                     withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]){
-                  
-                    sh 'cd GitHub- && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.url=${SONAR_URL}'
-                }
+            environment{
+                sonarHome = tool 'sonar'                
             }
+           steps {
+                withSonarQubeEnv('sonarqube') {
+               sh '''${sonarHome}/bin/sonar-scanner -Dsonar.projectKey=reactapp \
+                    -Dsonar.projectName=reactapp \
+                    -Dsonar.projectVersion=1.0 \
+                    -Dsonar.sources=src/'''
+              }
         }
         }
     }
-
-    }
-
 
     
+  
       
