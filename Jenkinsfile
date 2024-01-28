@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         SONAR_URL = "http://192.168.33.10:9000"
-        JAVA_HOME = tool('JDK')  // Set the correct tool name for JDK
+        JAVA_HOME = tool('JDK')  
     }
 
     tools {
@@ -21,6 +21,19 @@ pipeline {
         stage('Clean Workspace') {
             steps {
                 cleanWs()
+            }
+        }
+
+        stage('Cache npm Dependencies') {
+            steps {
+                script {
+                    if (fileExists('GitHubDir')) {
+                        echo 'Restoring npm dependencies from cache...'
+                        unstash name: 'GitHubDir'
+                    } else {
+                        echo 'No node_modules found in cache.'
+                    }
+                }
             }
         }
 
@@ -56,14 +69,35 @@ pipeline {
                 }
             }
         }
+
+        stage('Stash npm Dependencies') {
+            steps {
+                script {
+                    echo 'Stashing npm dependencies for future builds...'
+                    stash name: 'GitHubDir', includes: 'GitHub-/**', allowEmpty: true
+                }
+            }
+        }
+
+        stage('Deploy to Nginx') {
+            steps {
+                script {
+                    echo 'Deploying to Nginx...'
+                    sh 'rsync -a GitHub-/build/ /var/www/html/'
+                }
+            }
+        }
     }
 
     post {
         always {
             echo 'Slack Notification.'
-            slackSend channel: '#jenkinscice',
+            slackSend channel: '#jenkinscicd',
                 color: COLOR_MAP[currentBuild.currentResult],
-                message: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n"
+                message: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n",
+                botUser: false,
+                tokenCredentialId: 'slacktoken',
+                notifyCommitters: false
         }
     }
 }
