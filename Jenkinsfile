@@ -39,7 +39,11 @@ pipeline {
 
         stage('Fetching the Code') {
             steps {
-                sh "git clone https://github.com/DevOpsByOmer/GitHub-.git"
+                script {
+                    // Use the current branch as part of the clone URL
+                    def scmBranch = env.BRANCH_NAME ?: 'master'
+                    sh "git clone -b ${scmBranch} https://github.com/DevOpsByOmer/GitHub-.git"
+                }
             }
         }
 
@@ -47,6 +51,16 @@ pipeline {
             steps {
                 script {
                     sh 'cd GitHub- && npm install'
+                }
+            }
+        }
+         stage('Sonar Code Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '''/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -X -Dsonar.projectKey=reactapp \
+                        -Dsonar.projectName=reactapp \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=/var/lib/jenkins/workspace/React_project/GitHub-/src/'''
                 }
             }
         }
@@ -59,22 +73,11 @@ pipeline {
             }
         }
 
-        stage('Sonar Code Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh '''/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -X -Dsonar.projectKey=reactapp \
-                        -Dsonar.projectName=reactapp \
-                        -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources=/var/lib/jenkins/workspace/React_project/GitHub-/src/'''
-                }
-            }
-        }
-
         stage('Stash npm Dependencies') {
             steps {
                 script {
                     echo 'Stashing npm dependencies for future builds...'
-                    stash name: 'GitHubDir', includes: 'GitHub-/**', allowEmpty: true
+                    stash name: 'GitHubDir', includes: '/var/lib/jenkins/workspace/Reacr_project/GitHub-/node_modules/**', allowEmpty: true
                 }
             }
         }
@@ -86,8 +89,6 @@ pipeline {
                     sh 'rsync -a GitHub-/build/ /var/www/html/'
                 }
             }
-        }
-    }
 
     post {
         always {
@@ -100,4 +101,6 @@ pipeline {
                 notifyCommitters: false
         }
     }
+}
+}
 }
