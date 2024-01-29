@@ -25,7 +25,7 @@ jobs:
           key: dep-node-module-${{ runner.os }}-${{ hashFiles('**/package-lock.json')}}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Send a mail on failure
         if: failure()
@@ -58,7 +58,7 @@ jobs:
             ~/.npm
             ~/.cache
           key: dep-node-module-${{ runner.os }}-${{ hashFiles('**/package-lock.json')}}
-          
+
       - name: Install dependencies
         run: npm install
 
