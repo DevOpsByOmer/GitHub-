@@ -10,6 +10,13 @@ pipeline {
     }
 
     stages {
+         stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+         }
         stage('CODE CHECKOUT') {
             steps {
                 script{
@@ -21,7 +28,7 @@ pipeline {
             steps {
                 script {
                   
-                    sh 'cd nodejs-p && npm install'
+                    sh 'cd GitHub- && npm install'
                 }
             }
             
