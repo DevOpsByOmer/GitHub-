@@ -1,4 +1,4 @@
-name: Deploy Node.js App 
+name: Deploy React-APP
 
 on:
   push:
@@ -24,8 +24,9 @@ jobs:
 
       - name: start react-app
         run: pm2 start npm --name "react-app" -- start
+        
       - name: Send a mail on failure
-        if: failure()
+        if: always()
         uses: wadeww/send-email-action@master
         with:
           server_address: smtp.gmail.com
