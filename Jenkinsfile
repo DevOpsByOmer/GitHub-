@@ -10,13 +10,11 @@ pipeline {
     }
 
     stages {
-         stages {
-        stage('Clean Workspace') {
+         stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
-         }
         stage('CODE CHECKOUT') {
             steps {
                 script{
@@ -33,7 +31,6 @@ pipeline {
             }
             
         }
-
         stage('Build') {
             steps {
                 script {
