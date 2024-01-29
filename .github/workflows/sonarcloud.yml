@@ -20,3 +20,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Send a mail on failure
+        if: failure()
+        uses: wadeww/send-email-action@master
+        with:
+            server_address: smtp.gmail.com
+            port: 465
+            username: ${{secrets.MAIL_USERNAME}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            subject: Workflow finished
+            body: Job  ${{job.status}}
+            to: dvop.omer@gmail.com
+            from: Github-action
