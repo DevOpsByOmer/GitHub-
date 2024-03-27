@@ -1,0 +1,40 @@
+name: ZAP SCAN
+
+on:
+  workflow_dispatch:
+ 
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install dependencies
+        run: npm run build
+      
+      - name: Install dependencies
+        run: npm start &
+
+      - name: Install ZAP
+        run: |
+          wget https://github.com/zaproxy/zaproxy/releases/download/v2.10.0/ZAP_WEEKLY_D-2022-05-30.zip
+          unzip ZAP_WEEKLY_D-2022-05-30.zip
+          sudo mv ZAP_D-2022-05-30 /opt/zaproxy
+        shell: bash 
+
+      - name: Run ZAP
+        run: /opt/zaproxy/zap.sh -daemon -port 8090 -host 0.0.0.0
+      
+      - name: Perform DAST with ZAP
+        run: |
+            zap-cli --start "http://localhost:3000" --quick-scan --output "dast_report.html"
+  # Replace "http://localhost:3000" with the URL of your Node.js application.
+
